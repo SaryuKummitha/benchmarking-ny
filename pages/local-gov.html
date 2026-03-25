@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Local Government Spending & Revenue — Benchmarking New York</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="header-top">
+      <div class="header-logo">
+        <div class="logo-icon">🗽</div>
+        <div class="logo-text">
+          <span class="logo-line1">BENCHMARKING</span>
+          <span class="logo-line2">NEW YORK</span>
+          <span class="logo-sub">A <strong>SeeThroughNY</strong> Initiative</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="header-links">
+          <a href="#">FAQ</a>
+          <span class="divider">|</span>
+          <a href="#">Get Email Alerts</a>
+          <span class="divider">|</span>
+          <a href="#">Contact Us</a>
+          <span class="divider">|</span>
+          <a href="#" class="donate-btn">DONATE</a>
+        </div>
+        <div class="empire-logo">
+  <img src="../images/empire-center.png" alt="Empire Center" class="empire-img" />
+</div>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <a href="../index.html">BENCHMARKING</a>
+      <a href="property-tax.html">PROPERTY TAX</a>
+      <a href="local-gov.html" class="active">LOCAL GOVERNMENT</a>
+    </nav>
+  </header>
+
+  <div class="page-banner">
+    <div class="page-banner-inner">
+      <a href="../index.html">← Back to Benchmarking</a>
+      <h1>🏛️ Local Government Spending & Revenue</h1>
+      <p>Explore and compare per-capita spending, debt, revenue and tax burden across New York State</p>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <!-- MODE SELECTOR -->
+    <div class="filter-box">
+      <h2>What would you like to do?</h2>
+      <div class="filter-row">
+        <div class="filter-group">
+          <label>Select Mode</label>
+          <select id="mode-select" onchange="switchMode()">
+            <option value="">— Select —</option>
+            <option value="single">Get Single Report</option>
+            <option value="compare">Compare Multiple Locations</option>
+            <option value="rank">Rank by Category</option>
+            <option value="track">Track by Location</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- SINGLE REPORT FILTERS -->
+    <div id="single-filters" class="filter-box hidden">
+      <h2>Single Location Report</h2>
+      <div class="filter-row">
+        <div class="filter-group">
+          <label>Entity Type</label>
+          <select id="single-type" onchange="populateSingleCounty()">
+            <option value="">— All Types —</option>
+            <option value="city">City</option>
+            <option value="town">Town</option>
+            <option value="village">Village</option>
+            <option value="county">County</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>County</label>
+          <select id="single-county" onchange="populateSingleMuni()">
+            <option value="">— All Counties —</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Municipality</label>
+          <select id="single-muni">
+            <option value="">— All Municipalities —</option>
+          </select>
+        </div>
+        <div class="filter-group" style="justify-content:flex-end;">
+          <button class="btn-search" onclick="runSingle()">Search</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPARE FILTERS -->
+    <div id="compare-filters" class="filter-box hidden">
+      <h2>Compare Multiple Locations</h2>
+      <div class="filter-row">
+        <div class="filter-group">
+          <label>Entity Type</label>
+          <select id="compare-type" onchange="populateCompareCounty()">
+            <option value="">— All Types —</option>
+            <option value="city">City</option>
+            <option value="town">Town</option>
+            <option value="village">Village</option>
+            <option value="county">County</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>County</label>
+          <select id="compare-county" onchange="populateCompareMuni()">
+            <option value="">— Select County —</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Add Municipality</label>
+          <select id="compare-muni">
+            <option value="">— Select —</option>
+          </select>
+        </div>
+        <div class="filter-group" style="justify-content:flex-end;">
+          <button class="btn-search" onclick="addToCompare()">+ Add</button>
+        </div>
+      </div>
+      <div id="compare-list-box" class="compare-list-box hidden">
+        <strong>Comparison List:</strong>
+        <div id="compare-tags"></div>
+      </div>
+      <div class="filter-row" style="margin-top:12px;">
+        <div class="filter-group">
+          <label>Metric to Compare</label>
+          <select id="compare-metric">
+            <option value="expenditure_per_capita">Expenditure Per Capita</option>
+            <option value="taxes_per_capita">Taxes Per Capita</option>
+            <option value="debt_per_capita">Debt Per Capita</option>
+            <option value="effective_property_tax_rate">Effective Tax Rate</option>
+            <option value="full_value_per_capita">Full Value Per Capita</option>
+          </select>
+        </div>
+        <div class="filter-group" style="justify-content:flex-end;">
+          <button class="btn-search" onclick="runCompare()">Compare</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RANK FILTERS -->
+    <div id="rank-filters" class="filter-box hidden">
+      <h2>Rank by Category</h2>
+      <div class="filter-row">
+        <div class="filter-group">
+          <label>Entity Type</label>
+          <select id="rank-type">
+            <option value="">— All Types —</option>
+            <option value="city">City</option>
+            <option value="town">Town</option>
+            <option value="village">Village</option>
+            <option value="county">County</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Region</label>
+          <select id="rank-region">
+            <option value="">— All Regions —</option>
+            <option value="Capital">Capital Region</option>
+            <option value="Central New York">Central New York</option>
+            <option value="Finger Lakes">Finger Lakes</option>
+            <option value="Long Island">Long Island</option>
+            <option value="Mid-Hudson">Mid-Hudson</option>
+            <option value="Mohawk Valley">Mohawk Valley</option>
+            <option value="North Country">North Country</option>
+            <option value="Southern Tier">Southern Tier</option>
+            <option value="Western New York">Western New York</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Size</label>
+          <select id="rank-size">
+            <option value="">— All Sizes —</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Rank By</label>
+          <select id="rank-metric">
+            <option value="expenditure_per_capita">Expenditure Per Capita</option>
+            <option value="taxes_per_capita">Taxes Per Capita</option>
+            <option value="debt_per_capita">Debt Per Capita</option>
+            <option value="effective_property_tax_rate">Effective Tax Rate</option>
+            <option value="full_value_per_capita">Full Value Per Capita</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Order</label>
+          <select id="rank-order">
+            <option value="desc">Highest First</option>
+            <option value="asc">Lowest First</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Show Top</label>
+          <select id="rank-limit">
+            <option value="10">Top 10</option>
+            <option value="25">Top 25</option>
+            <option value="50">Top 50</option>
+            <option value="all">All</option>
+          </select>
+        </div>
+        <div class="filter-group" style="justify-content:flex-end;">
+          <button class="btn-search" onclick="runRank()">Rank</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRACK FILTERS -->
+    <div id="track-filters" class="filter-box hidden">
+      <h2>Track by Location</h2>
+      <div class="filter-row">
+        <div class="filter-group">
+          <label>Entity Type</label>
+          <select id="track-type" onchange="populateTrackCounty()">
+            <option value="">— All Types —</option>
+            <option value="city">City</option>
+            <option value="town">Town</option>
+            <option value="village">Village</option>
+            <option value="county">County</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>County</label>
+          <select id="track-county" onchange="populateTrackMuni()">
+            <option value="">— All Counties —</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Municipality</label>
+          <select id="track-muni">
+            <option value="">— Select —</option>
+          </select>
+        </div>
+        <div class="filter-group" style="justify-content:flex-end;">
+          <button class="btn-search" onclick="runTrack()">View Profile</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div id="results-section" class="hidden">
+      <div class="results-box">
+        <div class="results-header">
+          <h2 id="results-title">Results</h2>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <span class="results-count" id="results-count"></span>
+            <button class="btn-download" onclick="downloadCSV()">⬇ Download CSV</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="data-table" id="results-table">
+            <thead id="results-thead"></thead>
+            <tbody id="results-tbody"></tbody>
+          </table>
+        </div>
+        <div id="no-results" class="no-results hidden">
+          No results found. Try adjusting your filters.
+        </div>
+      </div>
+
+      <div class="chart-box" id="chart-box">
+        <h2 id="chart-title">Comparison Chart</h2>
+        <canvas id="myChart" height="100"></canvas>
+      </div>
+    </div>
+
+    <!-- TRACK PROFILE -->
+    <div id="track-profile" class="hidden">
+      <div class="profile-box">
+        <h2 id="profile-title">Location Profile</h2>
+        <div id="profile-content"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Data source: NYS Office of the State Comptroller &mdash; 2024</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../js/local-gov.js"></script>
+
+</body>
+</html>
