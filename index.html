@@ -3,23 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Benchmarking New York</title>
+  <title>Benchmarking New York — Property Tax Calculator</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
   <header>
     <div class="header-top">
-
       <div class="header-logo">
         <div class="logo-icon">🗽</div>
         <div class="logo-text">
           <span class="logo-line1">BENCHMARKING</span>
           <span class="logo-line2">NEW YORK</span>
-          <span class="logo-sub">A <strong>SeeThroughNY</strong> Initiative &nbsp </span>
+          <span class="logo-sub">A <strong>SeeThroughNY</strong> Initiative</span>
         </div>
       </div>
-
       <div class="header-right">
         <div class="header-links">
           <a href="#">FAQ</a>
@@ -31,78 +29,279 @@
           <a href="#" class="donate-btn">DONATE</a>
         </div>
         <div class="empire-logo">
-  <img src="images/empire-center.png" alt="Empire Center" class="empire-img"/>
-</div>
+          <img src="images/empire-center.png" alt="Empire Center" class="empire-img" />
         </div>
       </div>
-
     </div>
     <nav class="main-nav">
-      <a href="index.html" class="active">BENCHMARKING</a>
-      <a href="pages/property-tax.html">PROPERTY TAX</a>
+      <a href="index.html" class="active">PROPERTY TAX</a>
       <a href="pages/local-gov.html">LOCAL GOVERNMENT</a>
     </nav>
   </header>
 
-  <div class="hero-text">
-    <h1>Benchmarking New York</h1>
-    <p>Explore and compare property tax rates and local government finances across New York State</p>
+  <div class="page-banner">
+    <div class="page-banner-inner">
+      <div class="page-banner-title">
+        <h1>🏠 Property Tax Calculator</h1>
+        <p>Calculate and compare combined property tax rates across New York State — 2024 Data</p>
+      </div>
+      <div class="page-banner-actions">
+        <button class="btn-rank-toggle" id="rankToggleBtn" onclick="toggleRankMode()">
+          📊 Rank Municipalities
+        </button>
+        <button class="btn-help" onclick="toggleHelp()" title="How to use this tool">
+          ❓ How to Use
+        </button>
+      </div>
+    </div>
   </div>
 
-  <main class="home-main">
+  <!-- HELP GUIDE -->
+  <div id="helpGuide" class="help-guide hidden">
+    <div class="help-guide-inner">
+      <button class="help-close" onclick="toggleHelp()">✕ Close</button>
+      <h2>How to Use the Property Tax Calculator</h2>
+      <div class="help-grid">
+        <div class="help-item">
+          <div class="help-icon">🔍</div>
+          <h3>Search by Address</h3>
+          <p>Type any New York State address in the search box. Suggestions will appear as you type. Select your address to see the property tax rates for that location.</p>
+        </div>
+        <div class="help-item">
+          <div class="help-icon">🏫</div>
+          <h3>School District Filter</h3>
+          <p>Many towns have multiple school districts. If your address falls in a town with multiple districts, use the school district dropdown to select the correct one for your property.</p>
+        </div>
+        <div class="help-item">
+          <div class="help-icon">💰</div>
+          <h3>Estimate Your Tax Bill</h3>
+          <p>Enter your assessed property value to get an estimated annual tax bill. The bill is broken down by school district, county, municipal, and village components.</p>
+        </div>
+        <div class="help-item">
+          <div class="help-icon">⚖️</div>
+          <h3>Compare Locations</h3>
+          <p>Use the Compare section below to add multiple locations and compare their tax rates side by side with a bar chart.</p>
+        </div>
+        <div class="help-item">
+          <div class="help-icon">📊</div>
+          <h3>Rank Municipalities</h3>
+          <p>Click the "Rank Municipalities" button at the top to rank counties, towns, cities, villages, or school districts by tax rate within selected counties.</p>
+        </div>
+        <div class="help-item">
+          <div class="help-icon">📖</div>
+          <h3>Understanding Rates</h3>
+          <p>Rates are shown as both % (percentage of assessed value) and $ per $1,000 of assessed value. For example, a rate of 2.87% means $28.70 per $1,000 assessed value.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <section class="cards">
+  <div class="page-content" id="mainContent">
 
-      <div class="card">
-        <div class="card-icon">🏠</div>
-        <h2>Property Tax Calculator</h2>
-        <p>
-          Calculate the combined property tax rate and estimated tax bill
-          for every locality in New York State, including school district,
-          county, municipal, and village components.
-        </p>
-        <ul>
-          <li>Look up any city, town, or village</li>
-          <li>Compare multiple locations side by side</li>
-          <li>Rank municipalities by tax rate</li>
-          <li>Download results as CSV</li>
-        </ul>
-        <a href="pages/property-tax.html" class="btn">Open Property Tax Tool</a>
+    <!-- ADDRESS SEARCH SECTION -->
+    <div class="address-search-box" id="addressSection">
+      <div class="address-search-header">
+        <h2>🔍 Search by Address</h2>
+        <span class="tax-year-badge">Tax Year 2024</span>
+      </div>
+      <p>Enter a New York State address to instantly find property tax rates for that location</p>
+
+      <div class="address-row">
+        <div class="autocomplete-wrapper">
+          <input type="text" id="address-input"
+            placeholder="e.g. 5 Warner Ave, Delmar, NY 12054"
+            oninput="handleAddressInput()"
+            onkeydown="handleAddressKeydown(event)"
+            autocomplete="off"/>
+          <div id="autocomplete-list" class="autocomplete-list hidden"></div>
+        </div>
+        <button class="btn-search" onclick="searchByAddress()">Find Tax Rates</button>
       </div>
 
-      <div class="card">
-        <div class="card-icon">🏛️</div>
-        <h2>Local Government Spending & Revenue</h2>
-        <p>
-          Explore per-capita spending, debt, revenue, and tax burden
-          across counties, cities, towns, and villages throughout
-          New York State.
-        </p>
-        <ul>
-          <li>View any single government entity</li>
-          <li>Compare like entities to each other</li>
-          <li>Rank by spending, debt, or tax rate</li>
-          <li>Filter by region, area, or size</li>
-        </ul>
-        <a href="pages/local-gov.html" class="btn">Open Spending & Revenue Tool</a>
+      <div id="address-status" class="address-status hidden"></div>
+
+      <div id="address-result" class="address-result hidden">
+        <div class="address-result-inner">
+          <div class="address-found-label">📍 Address found in:</div>
+          <div class="address-found-location" id="address-found-text"></div>
+
+          <!-- School District Filter -->
+          <div id="sd-filter-box" class="sd-filter-box hidden">
+            <label for="sd-select">🏫 Multiple school districts serve this area. Select yours:</label>
+            <select id="sd-select" onchange="updateSDRates()">
+            </select>
+          </div>
+
+          <div class="address-result-rates" id="address-result-rates"></div>
+
+          <div class="address-bill-row">
+            <label>Enter your <strong>assessed property value</strong> to estimate your tax bill:</label>
+            <div class="address-bill-inputs">
+              <input type="number" id="address-propval" placeholder="e.g. 300000" min="0"/>
+              <button class="btn-search" onclick="calcAddressBill()">Calculate Bill</button>
+            </div>
+            <div id="address-bill-result" class="address-bill-result hidden"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mode-divider">— or compare multiple locations below —</div>
+
+    <!-- COMPARE SECTION -->
+    <div class="filter-box" id="compareSection">
+      <h2>⚖️ Compare Multiple Locations</h2>
+      <p class="section-desc">Add up to 10 locations to compare their property tax rates side by side.</p>
+
+      <div class="filter-row">
+        <div class="filter-group">
+          <label>County</label>
+          <select id="compare-county" onchange="populateCompareFilters()">
+            <option value="">— All Counties —</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>City</label>
+          <select id="compare-city" onchange="clearOtherCompareFilters('city')">
+            <option value="">— Select City —</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Town</label>
+          <select id="compare-town" onchange="clearOtherCompareFilters('town')">
+            <option value="">— Select Town —</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Village</label>
+          <select id="compare-village" onchange="clearOtherCompareFilters('village')">
+            <option value="">— Select Village —</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>School District</label>
+          <select id="compare-sd" onchange="clearOtherCompareFilters('sd')">
+            <option value="">— Select School District —</option>
+          </select>
+        </div>
+        <div class="filter-group" style="justify-content:flex-end;">
+          <button class="btn-search" onclick="addToCompare()">+ Add</button>
+        </div>
       </div>
 
-    </section>
+      <div id="compare-list-box" class="compare-list-box hidden">
+        <strong>Comparison List:</strong>
+        <div id="compare-tags"></div>
+      </div>
 
-    <section class="data-note">
-      <h3>About This Data</h3>
-      <p>
-        Data is sourced from the <strong>New York State Office of the State Comptroller</strong>
-        for the 2024 fiscal year. This tool covers counties, cities, towns, and villages
-        across New York State, excluding New York City.
-      </p>
-    </section>
+      <div class="filter-row" style="margin-top:14px;">
+        <div class="filter-group" style="justify-content:flex-end; margin-left:auto;">
+          <button class="btn-search" onclick="runCompare()">Compare</button>
+        </div>
+      </div>
+    </div>
 
-  </main>
+    <!-- COMPARE RESULTS -->
+    <div id="compare-results" class="hidden">
+      <div class="results-box">
+        <div class="results-header">
+          <h2 id="compare-results-title">Comparison Results</h2>
+          <span class="results-count" id="compare-results-count"></span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="data-table">
+            <thead id="compare-thead"></thead>
+            <tbody id="compare-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="chart-box">
+        <h2>Tax Rate Comparison</h2>
+        <canvas id="compareChart" height="100"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RANK SECTION (replaces main content when toggled) -->
+  <div class="page-content hidden" id="rankContent">
+    <div class="filter-box">
+      <div class="rank-header">
+        <h2>📊 Rank Municipalities by Tax Rate</h2>
+        <button class="btn-back" onclick="toggleRankMode()">← Back to Search</button>
+      </div>
+      <p class="section-desc">Select counties and entity type to rank by property tax rate.</p>
+
+      <div class="filter-row">
+        <div class="filter-group" style="min-width:200px;">
+          <label>County (select multiple)</label>
+          <select id="rank-county" multiple size="5">
+          </select>
+          <span class="filter-hint">Hold Ctrl to select multiple</span>
+        </div>
+        <div class="filter-group">
+          <label>Rank By</label>
+          <select id="rank-type">
+            <option value="town">Towns</option>
+            <option value="city">Cities</option>
+            <option value="village">Villages</option>
+            <option value="county">Counties</option>
+            <option value="sd">School Districts</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Show Top</label>
+          <select id="rank-limit">
+            <option value="10">Top 10</option>
+            <option value="25">Top 25</option>
+            <option value="50">Top 50</option>
+            <option value="all">All</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Order</label>
+          <select id="rank-order">
+            <option value="desc">Highest First</option>
+            <option value="asc">Lowest First</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Property Value (optional $)</label>
+          <input type="number" id="rank-propval" placeholder="e.g. 300000" min="0"/>
+        </div>
+        <div class="filter-group" style="justify-content:flex-end;">
+          <button class="btn-search" onclick="runRank()">Rank</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="rank-results" class="hidden">
+      <div class="results-box">
+        <div class="results-header">
+          <h2 id="rank-results-title">Ranked Results</h2>
+          <span class="results-count" id="rank-results-count"></span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="data-table">
+            <thead id="rank-thead"></thead>
+            <tbody id="rank-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="chart-box">
+        <h2 id="rank-chart-title">Tax Rate Ranking</h2>
+        <canvas id="rankChart" height="100"></canvas>
+      </div>
+    </div>
+  </div>
 
   <footer>
-    <p>Data source: NYS Office of the State Comptroller &mdash; 2024</p>
+    <p>Data source: NYS Office of the State Comptroller &mdash; 2024 &nbsp;|&nbsp;
+    <a href="pages/local-gov.html" style="color:rgba(255,255,255,0.7);">Local Government Spending & Revenue →</a></p>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/property-tax.js"></script>
 
 </body>
 </html>
