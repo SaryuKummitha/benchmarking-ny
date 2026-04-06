@@ -816,3 +816,380 @@ table.data-table tr:hover td {
   color: #1a3a5c;
   margin-bottom: 16px;
 }
+/* ── PAGE BANNER ACTIONS ── */
+.page-banner-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.page-banner-title h1 {
+  font-size: 1.6rem;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.page-banner-title p {
+  font-size: 0.93rem;
+  opacity: 0.85;
+  color: white;
+}
+
+.page-banner-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-rank-toggle {
+  background: white;
+  color: #1a3a5c;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-rank-toggle:hover {
+  background: #e8f0f8;
+}
+
+.btn-help {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.5);
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-help:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.btn-back {
+  background: #f0f5fb;
+  color: #1a3a5c;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-back:hover {
+  background: #dde8f5;
+}
+
+/* ── HELP GUIDE ── */
+.help-guide {
+  background: #1a3a5c;
+  color: white;
+  padding: 30px 40px;
+}
+
+.help-guide-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.help-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.help-guide-inner h2 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.help-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.help-item {
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.help-icon {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.help-item h3 {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  color: white;
+}
+
+.help-item p {
+  font-size: 0.83rem;
+  opacity: 0.85;
+  line-height: 1.5;
+}
+
+/* ── TAX YEAR BADGE ── */
+.address-search-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.address-search-header h2 {
+  font-size: 1.1rem;
+  color: #1a3a5c;
+  margin: 0;
+}
+
+.tax-year-badge {
+  background: #1a3a5c;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* ── AUTOCOMPLETE ── */
+.autocomplete-wrapper {
+  flex: 1;
+  min-width: 280px;
+  position: relative;
+}
+
+.autocomplete-wrapper input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.autocomplete-wrapper input:focus {
+  outline: none;
+  border-color: #1a3a5c;
+}
+
+.autocomplete-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.autocomplete-item {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #333;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.autocomplete-item:hover,
+.autocomplete-item.active {
+  background: #e8f0f8;
+  color: #1a3a5c;
+}
+
+/* ── SCHOOL DISTRICT FILTER ── */
+.sd-filter-box {
+  background: #fff8e1;
+  border: 1px solid #f0c040;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.sd-filter-box label {
+  display: block;
+  font-size: 0.88rem;
+  color: #555;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.sd-filter-box select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.93rem;
+}
+
+/* ── RATE CARDS ── */
+.rate-card {
+  background: white;
+  border-radius: 8px;
+  padding: 14px 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rate-card.highlight {
+  background: #1a3a5c;
+}
+
+.rate-card-entity {
+  font-size: 0.78rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 2px;
+}
+
+.rate-card.highlight .rate-card-entity {
+  color: rgba(255,255,255,0.7);
+}
+
+.rate-card-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.rate-card.highlight .rate-card-name {
+  color: white;
+}
+
+.rate-card-pct {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #1a3a5c;
+}
+
+.rate-card.highlight .rate-card-pct {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.rate-card-per1000 {
+  font-size: 0.78rem;
+  color: #888;
+  margin-top: 2px;
+}
+
+.rate-card.highlight .rate-card-per1000 {
+  color: rgba(255,255,255,0.75);
+}
+
+/* ── TAX BILL BREAKDOWN ── */
+.bill-breakdown {
+  background: #f0f5fb;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 12px;
+}
+
+.bill-breakdown h4 {
+  font-size: 0.95rem;
+  color: #1a3a5c;
+  margin-bottom: 12px;
+}
+
+.bill-breakdown-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.bill-breakdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: white;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.bill-breakdown-item .item-name {
+  color: #555;
+}
+
+.bill-breakdown-item .item-amount {
+  font-weight: 700;
+  color: #1a3a5c;
+}
+
+.bill-breakdown-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: #1a3a5c;
+  border-radius: 6px;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* ── RANK SECTION ── */
+.rank-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.rank-header h2 {
+  font-size: 1.05rem;
+  color: #1a3a5c;
+}
+
+.filter-hint {
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 4px;
+  display: block;
+}
+
+select[multiple] {
+  height: auto;
+  min-height: 100px;
+}
+
+/* ── SECTION DESC ── */
+.section-desc {
+  font-size: 0.88rem;
+  color: #666;
+  margin-bottom: 16px;
+}
